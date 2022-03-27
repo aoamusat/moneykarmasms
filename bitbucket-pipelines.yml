@@ -7,7 +7,8 @@ pipelines:
               caches:
                   - pip
               script:
-                  - python -m pip install requirements.txt
+                  - python -m pip install --upgrade pip
+                  - python -m pip install -r requirements.txt
         - step:
               name: Configure application environment variables
               script:
