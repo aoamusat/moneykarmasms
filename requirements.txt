@@ -2,6 +2,7 @@ asgiref==3.5.0
 async-timeout==4.0.2
 certifi==2021.10.8
 charset-normalizer==2.0.12
+coverage==6.3.2
 Deprecated==1.2.13
 Django==4.0.3
 django-environ==0.8.1

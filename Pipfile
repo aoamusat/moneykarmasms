@@ -12,6 +12,7 @@ django-extensions = "*"
 pydotplus = "*"
 django-environ = "*"
 requests = "*"
+coverage = "*"
 
 [dev-packages]
 
