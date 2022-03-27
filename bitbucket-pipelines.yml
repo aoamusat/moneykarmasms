@@ -3,13 +3,6 @@ image: python:3.9.4
 pipelines:
     default:
         - step:
-              name: Build and install dependencies
-              caches:
-                  - pip
-              script:
-                  - python -m pip install --upgrade pip
-                  - python -m pip install -r requirements.txt
-        - step:
               name: Configure application environment variables
               script:
                   - cd moneykarma
@@ -27,9 +20,15 @@ pipelines:
                   - echo REDIS_HOST=$REDIS_HOST >> .env
                   - echo REDIS_USER=$REDIS_USER >> .env
         - step:
+              name: Build and install dependencies
+              caches:
+                  - pip
+              script:
+                  - python -m pip install --upgrade pip
+                  - python -m pip install -r requirements.txt
+        - step:
               name: Setup Database & Migrations
               script:
-                  - echo "Setting up environment variables"
                   - python manage.py makemigrations
                   - python manage.py migrate
         - step:
