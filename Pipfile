@@ -13,6 +13,9 @@ pydotplus = "*"
 django-environ = "*"
 requests = "*"
 coverage = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+django-heroku = "*"
 
 [dev-packages]
 

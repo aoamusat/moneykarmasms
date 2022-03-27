@@ -4,14 +4,18 @@ certifi==2021.10.8
 charset-normalizer==2.0.12
 coverage==6.3.2
 Deprecated==1.2.13
+dj-database-url==0.5.0
 Django==4.0.3
 django-environ==0.8.1
 django-extensions==3.1.5
+django-heroku==0.3.1
 django-redis==5.2.0
 djangorestframework==3.13.1
+gunicorn==20.1.0
 idna==3.3
 packaging==21.3
 psycopg2==2.9.3
+psycopg2-binary==2.9.3
 pydotplus==2.0.2
 pyparsing==3.0.7
 pytz==2022.1
@@ -21,4 +25,5 @@ sqlparse==0.4.2
 typing_extensions==4.1.1
 tzdata==2022.1
 urllib3==1.26.9
+whitenoise==6.0.0
 wrapt==1.14.0
