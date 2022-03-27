@@ -9,20 +9,32 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Configure Environment Variables
+        env:
+          SECRET_KEY: ${{secrets.SECRET_KEY}}
+          HEROKU_APP: ${{secrets.HEROKU_APP}}
+          DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+          DATABASE_USER: ${{secrets.DATABASE_USER}}
+          DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+          DATABASE_HOST: ${{secrets.DATABASE_HOST}}
+          DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+          REDIS_HOST: ${{secrets.REDIS_HOST}}
+          REDIS_PORT: ${{secrets.REDIS_PORT}}
+          REDIS_USER: ${{secrets.REDIS_USER}}
+          REDIS_PASSWORD: ${{secrets.REDIS_PASSWORD}}
         run: |
           cd moneykarma
-          echo SECRET_KEY=${{secrets.SECRET_KEY}} >> .env
-          echo APP_URL=https://${{secrets.HEROKU_APP}}.herokuapp.com >> .env
+          echo SECRET_KEY='${SECRET_KEY}' >> .env
+          echo APP_URL='https://${HEROKU_APP}.herokuapp.com' >> .env
           echo APP_PORT=80 >> .env
-          echo DATABASE_NAME=${{secrets.DATABASE_NAME}} >> .env
-          echo DATABASE_USER=${{secrets.DATABASE_USER}} >> .env
-          echo DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}} >> .env
-          echo DATABASE_PORT=${{secrets.DATABASE_PORT}} >> .env
-          echo DATABASE_HOST=${{secrets.DATABASE_HOST}} >> .env
-          echo REDIS_HOST=${{secrets.REDIS_HOST}} >> .env
-          echo REDIS_PORT=${{secrets.REDIS_PORT}} >> .env
-          echo REDIS_USER=${{secrets.REDIS_USER}} >> .env
-          echo REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}} >> .env
+          echo DATABASE_NAME='${DATABASE_NAME}' >> .env
+          echo DATABASE_USER='${DATABASE_USER}' >> .env
+          echo DATABASE_PASSWORD='${DATABASE_PASSWORD}' >> .env
+          echo DATABASE_PORT='${DATABASE_PORT}' >> .env
+          echo DATABASE_HOST='${DATABASE_HOST}' >> .env
+          echo REDIS_HOST='${REDIS_HOST'} >> .env
+          echo REDIS_PORT='${REDIS_PORT'} >> .env
+          echo REDIS_USER='${REDIS_USER'} >> .env
+          echo REDIS_PASSWORD='${REDIS_PASSWORD}' >> .env
   build:
     runs-on: ubuntu-20.04
     steps:
@@ -48,11 +60,16 @@ jobs:
     steps: 
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Setup Heroku Config
+        env:
+          HEROKU_APP: ${{secrets.HEROKU_APP}}
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          HEROKU_EMAIL: ${{secrets.HEROKU_EMAIL}}
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          heroku_api_key: '${HEROKU_API_KEY}'
+          heroku_app_name: '${HEROKU_APP}'
+          heroku_email: '${HEROKU_EMAIL}'
       - name: Deployed successfully
         run: |
           echo Deployed!!
-          echo Application live at: https://${{secrets.HEROKU_APP}}.herokuapp.com
+          echo Application live at: 'https://${HEROKU_APP}.herokuapp.com'
