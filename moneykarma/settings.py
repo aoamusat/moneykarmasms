@@ -95,11 +95,11 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{env('REDIS_HOST')}:{env('REDIS_PORT')}/0",
-        # "LOCATION": f"redis://{env('REDIS_USER')}@{env('REDIS_HOST')}:{env('REDIS_PORT')}/0",
+        # "LOCATION": f"redis://{env('REDIS_HOST')}:{env('REDIS_PORT')}/0",
+        "LOCATION": f"redis://{env('REDIS_USER')}@{env('REDIS_HOST')}:{env('REDIS_PORT')}/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            # "PASSWORD": env("REDIS_PASSWORD"),
+            "PASSWORD": env("REDIS_PASSWORD"),
         },
     }
 }

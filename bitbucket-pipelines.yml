@@ -1,0 +1,49 @@
+image: python:3.9.4
+
+pipelines:
+    default:
+        - step:
+              name: Build and install dependencies
+              caches:
+                  - pip
+              script:
+                  - python -m pip install requirements.txt
+        - step:
+              name: Configure application environment variables
+              script:
+                  - cd moneykarma
+                  - touch .env
+                  - echo APP_PORT=80 >> .env
+                  - echo SECRET_KEY=$SECRET_KEY >> .env
+        - step:
+              name: Setup Database & Migrations
+              script:
+                  - echo "Setting up environment variables"
+                  - python manage.py makemigrations
+                  - python manage.py migrate
+        - step:
+              name: Run unit tests
+              script:
+                  - python manage.py test
+                  - coverage run manage.py test
+                  - coverage xml
+              caches:
+                  - pip
+        - step:
+              name: Create application artifacts
+              script:
+                  - git archive --format=tar.gz main -o application.tar.gz
+              artifacts:
+                  - application.tar.gz
+        - step:
+              name: Deploy to Heroku dyno
+              deployment: test
+              caches:
+                  - pip
+              script:
+                  - pipe: atlassian/heroku-deploy:1.2.1
+                    variables:
+                        HEROKU_API_KEY: $HEROKU_API_KEY
+                        HEROKU_APP_NAME: $HEROKU_APP_NAME
+                        ZIP_FILE: 'application.tar.gz'
+                        WAIT: 'true' # Wait for the deployment to finish
