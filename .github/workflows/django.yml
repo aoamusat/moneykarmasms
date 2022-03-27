@@ -60,7 +60,6 @@ jobs:
     steps: 
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
-      - name: Setup Heroku Config
         env:
           HEROKU_APP: ${{secrets.HEROKU_APP}}
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
