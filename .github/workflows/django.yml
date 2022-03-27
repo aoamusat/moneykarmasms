@@ -11,18 +11,18 @@ jobs:
       - name: Configure Environment Variables
         run: |
           cd moneykarma
-          echo SECRET_KEY=${{secrets.SECRET_KEY}} >> .env
-          echo APP_URL=https://${{secrets.HEROKU_APP}}.herokuapp.com >> .env
+          echo SECRET_KEY=${{moneykarma.SECRET_KEY}} >> .env
+          echo APP_URL=https://${{moneykarma.HEROKU_APP}}.herokuapp.com >> .env
           echo APP_PORT=80 >> .env
-          echo DATABASE_NAME=${{secrets.DATABASE_NAME}} >> .env
-          echo DATABASE_USER=${{secrets.DATABASE_USER}} >> .env
-          echo DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}} >> .env
-          echo DATABASE_PORT=${{secrets.DATABASE_PORT}} >> .env
-          echo DATABASE_HOST=${{secrets.DATABASE_HOST}} >> .env
-          echo REDIS_HOST=${{secrets.REDIS_HOST}} >> .env
-          echo REDIS_PORT=${{secrets.REDIS_PORT}} >> .env
-          echo REDIS_USER=${{secrets.REDIS_USER}} >> .env
-          echo REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}} >> .env
+          echo DATABASE_NAME=${{moneykarma.DATABASE_NAME}} >> .env
+          echo DATABASE_USER=${{moneykarma.DATABASE_USER}} >> .env
+          echo DATABASE_PASSWORD=${{moneykarma.DATABASE_PASSWORD}} >> .env
+          echo DATABASE_PORT=${{moneykarma.DATABASE_PORT}} >> .env
+          echo DATABASE_HOST=${{moneykarma.DATABASE_HOST}} >> .env
+          echo REDIS_HOST=${{moneykarma.REDIS_HOST}} >> .env
+          echo REDIS_PORT=${{moneykarma.REDIS_PORT}} >> .env
+          echo REDIS_USER=${{moneykarma.REDIS_USER}} >> .env
+          echo REDIS_PASSWORD=${{moneykarma.REDIS_PASSWORD}} >> .env
   build:
     runs-on: ubuntu-20.04
     steps:
@@ -49,10 +49,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          heroku_api_key: ${{moneykarma.HEROKU_API_KEY}}
+          heroku_app_name: ${{moneykarma.HEROKU_APP}}
+          heroku_email: ${{moneykarma.HEROKU_EMAIL}}
       - name: Deployed successfully
         run: |
           echo Deployed!!
-          echo Application live at: https://${{secrets.HEROKU_APP}}.herokuapp.com
+          echo Application live at: https://${{moneykarma.HEROKU_APP}}.herokuapp.com
