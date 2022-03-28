@@ -1,9 +1,9 @@
-image: python:3.9.4
+image: python:3.9
 
 pipelines:
     default:
         - step:
-              name: Configure application environment variables
+              name: Configure Application Environment Variables
               script:
                   - cd moneykarma
                   - touch .env
@@ -20,36 +20,24 @@ pipelines:
                   - echo REDIS_HOST=$REDIS_HOST >> .env
                   - echo REDIS_USER=$REDIS_USER >> .env
         - step:
-              name: Build and install dependencies
+              name: Build & Test
               caches:
                   - pip
               script:
-                  - python -m pip install --upgrade pip
                   - python -m pip install -r requirements.txt
-        - step:
-              name: Setup Database & Migrations
-              script:
                   - python manage.py makemigrations
                   - python manage.py migrate
-        - step:
-              name: Run unit tests
-              script:
-                  - python manage.py test
                   - coverage run manage.py test
                   - coverage xml
-              caches:
-                  - pip
         - step:
-              name: Create application artifacts
+              name: Create Application Artifacts
               script:
                   - git archive --format=tar.gz main -o application.tar.gz
               artifacts:
                   - application.tar.gz
         - step:
-              name: Deploy to Heroku dyno
-              deployment: test
-              caches:
-                  - pip
+              name: Deploy to Heroku Dyno
+              deployment: staging
               script:
                   - pipe: atlassian/heroku-deploy:1.2.1
                     variables:
