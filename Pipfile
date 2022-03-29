@@ -16,6 +16,7 @@ coverage = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 django-heroku = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

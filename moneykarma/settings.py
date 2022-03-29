@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -45,11 +45,13 @@ INSTALLED_APPS = [
     "smsapi.apps.SmsapiConfig",
     "rest_framework",
     "django_extensions",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -111,9 +113,7 @@ REST_FRAMEWORK = {
         "smsapi.auth.MessageRequestThrotlle",
     ],
     "TEST_REQUEST_RENDERER_CLASSES": [
-        "rest_framework.renderers.MultiPartRenderer",
         "rest_framework.renderers.JSONRenderer",
-        "rest_framework.renderers.TemplateHTMLRenderer",
     ],
     "DEFAULT_THROTTLE_RATES": {"user": "50/day"},
 }
@@ -142,9 +142,11 @@ AUTH_USER_MODEL = "smsapi.Account"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "smsapi.auth.SMSAPIAuthentication",
-        # "rest_framework.authentication.BasicAuthentication",
     ]
 }
+
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Internationalization
