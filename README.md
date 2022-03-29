@@ -15,6 +15,7 @@ SMS API with features like caching, rate limiting.
 * ```python manage.py runserver```
 
 ## Sample Data
+Find sample login credentials here: https://gist.github.com/aoamusat/14b0edec06ddda0ba82a57013025fe02
 
 ## API Documentation
-https://documenter.getpostman.com/view/1121711/UVyoXyUi
+Full API documentation: https://documenter.getpostman.com/view/1121711/UVyoXyUi
